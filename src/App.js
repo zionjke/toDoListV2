@@ -7,9 +7,8 @@ import TodoListFooter from "./components/TodoListFooter";
 class App extends React.Component {
     constructor(props) {
         super(props);
+        this.newTaskTitleRef = React.createRef();
     };
-
-    newTaskTitleRef = React.createRef();
 
     state = {
         tasks : [
@@ -28,11 +27,11 @@ class App extends React.Component {
             priority: "high"
         };
         let newTasks = [...this.state.tasks, newTask];
+        this.newTaskTitleRef.current.value = "";
         this.setState({
             tasks:newTasks
         })
     };
-
 
     render = () => {
         return (
