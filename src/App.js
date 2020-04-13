@@ -7,17 +7,9 @@ import TodoListFooter from "./components/TodoListFooter";
 class App extends React.Component {
     constructor(props) {
         super(props);
-        setTimeout(()=>{
-            let newTask = {
-                title: "PHP",isDone: false, priority: "priority:low"
-            };
-                let newTasks = [...this.state.tasks,newTask];
-                this.setState({
-                    tasks:newTasks
-                });
+    };
 
-        },2000);
-    }
+    newTaskTitleRef = React.createRef();
 
     state = {
         tasks : [
@@ -28,14 +20,25 @@ class App extends React.Component {
         filterValue : "All"
     };
 
-
+    onAddTaskClick = () => {
+        let newTaskName = this.newTaskTitleRef.current.value;
+        let newTask = {
+            title: newTaskName,
+            isDone: true,
+            priority: "high"
+        };
+        let newTasks = [...this.state.tasks, newTask];
+        this.setState({
+            tasks:newTasks
+        })
+    };
 
 
     render = () => {
         return (
             <div className="App">
                 <div className="todoList">
-                    <TodoListHeader/>
+                    <TodoListHeader onAddTaskClick={this.onAddTaskClick} newTaskTitleRef={this.newTaskTitleRef}/>
                     <TodoListTasks tasks={this.state.tasks}/>
                     <TodoListFooter filterValue={this.state.filterValue}/>
                 </div>
