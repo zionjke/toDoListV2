@@ -4,7 +4,7 @@ import TodoListTask from "./TodoListTask";
 class TodoListTasks extends React.Component {
     render = () => {
 
-        let taskEl = this.props.tasks.map ( task => <TodoListTask title={task.title} isDone={task.isDone} priority={task.priority}/>);
+        let taskEl = this.props.tasks.map ( task => <TodoListTask task={task} changeStatus={this.props.changeStatus}/>);
 
         return (
             <div className="todoList-tasks">
