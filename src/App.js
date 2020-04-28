@@ -5,6 +5,10 @@ import TodoListTasks from "./components/TodoListTasks";
 import TodoListFooter from "./components/TodoListFooter";
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.addTask = this.addTask.bind(this);
+    };
 
     state = {
         tasks : [
@@ -48,7 +52,7 @@ class App extends React.Component {
         return (
             <div className="App">
                 <div className="todoList">
-                    <TodoListHeader addTask={this.addTask} newTaskTitleRef={this.newTaskTitleRef}/>
+                    <TodoListHeader addTask={this.addTask}/>
                     <TodoListTasks tasks={this.state.tasks.filter(
                         t => {
                             switch (this.state.filterValue) {
