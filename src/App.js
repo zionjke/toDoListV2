@@ -27,7 +27,7 @@ class App extends React.Component {
         // };
         // let newTasks = [...this.state.tasks, newTask];
         this.setState({
-            tasks:[...this.state.tasks, {title:newTitle,isDone:true,priority:"priority:low"}]
+            tasks:[...this.state.tasks, {title:newTitle,isDone:false,priority:"priority:low"}]
         })
     };
 
