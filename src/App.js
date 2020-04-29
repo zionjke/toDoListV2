@@ -4,6 +4,7 @@ import TodoListHeader from "./components/TodoListHeader";
 import TodoListTasks from "./components/TodoListTasks";
 import TodoListFooter from "./components/TodoListFooter";
 
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -43,10 +44,9 @@ class App extends React.Component {
                     return {...t,isDone: isDone}
                 }
                 return t;
-            })
+            });
             this.setState({tasks:newTasks})
-    }
-
+    };
 
     render = () => {
         return (
@@ -56,9 +56,9 @@ class App extends React.Component {
                     <TodoListTasks tasks={this.state.tasks.filter(
                         t => {
                             switch (this.state.filterValue) {
-                                case "Active": return t.isDone === false
-                                case "Completed": return t.isDone === true
-                                case "All": return true
+                                case "Active": return t.isDone === false;
+                                case "Completed": return t.isDone === true;
+                                case "All": return true;
                                 default: return true;
                             }
                         }

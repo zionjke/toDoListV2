@@ -5,13 +5,13 @@ class TodoListHeader extends React.Component {
     state = {
         error: false,
         title: ""
-    }
+    };
 
     // newTaskTitleRef = React.createRef();
 
     onAddTaskClick = () => {
         // let newTitle = this.newTaskTitleRef.current.value;
-        let newTitle = this.state.title.trim()
+        let newTitle = this.state.title.trim();
         if (newTitle === "") {
             this.setState({
                 error: true
@@ -38,12 +38,12 @@ class TodoListHeader extends React.Component {
         if (e.key === "Enter") {
             this.onAddTaskClick();
         }
-    }
+    };
 
 
     render = () => {
 
-        let classForInput = this.state.error ? "error" : ""
+        let classForInput = this.state.error ? "error" : "";
 
         return (
             <div className="todoList-header">

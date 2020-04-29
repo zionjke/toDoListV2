@@ -4,7 +4,7 @@ class TodoListTask extends React.Component {
 
     onIsDoneChanged = (e) => {
         this.props.changeStatus(this.props.task, e.currentTarget.checked)
-    }
+    };
 
     render = () => {
 
@@ -21,8 +21,6 @@ class TodoListTask extends React.Component {
                 </div>
         );
     }
-
-
 }
 
 
