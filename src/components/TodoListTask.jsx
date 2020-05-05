@@ -1,9 +1,28 @@
 import React from 'react';
 
 class TodoListTask extends React.Component {
+    state = {
+        isEditMode: false
+    };
+
+    activatedEditMode = () => {
+        this.setState({
+            isEditMode: true
+        })
+    };
+
+    deactivatedEditMode = () => {
+        this.setState({
+            isEditMode: false
+        })
+    };
 
     onIsDoneChanged = (e) => {
-        this.props.changeStatus(this.props.task, e.currentTarget.checked)
+        this.props.changeStatus(this.props.task.id, e.currentTarget.checked)
+    }
+
+    onIsTitleChanged = (e) => {
+        this.props.changeTitle(this.props.task.id,e.currentTarget.value)
     }
 
     render = () => {
@@ -12,12 +31,24 @@ class TodoListTask extends React.Component {
 
         return (
                 <div className={classForTask}>
+
                     <input
                             type="checkbox"
                            checked={this.props.task.isDone}
                             onChange={this.onIsDoneChanged}
                     />
-                    <span>{this.props.task.title} {this.props.task.priority}</span>
+
+                    { this.state.isEditMode
+                        ? <input value={this.props.task.title}
+                                 autoFocus={true}
+                                 onBlur={this.deactivatedEditMode}
+                                 onChange={this.onIsTitleChanged}/>
+                        : <span onClick={this.activatedEditMode}> {this.props.task.id}: {this.props.task.title} </span>
+                    }
+
+                    <span>
+                         {this.props.task.priority}
+                    </span>
                 </div>
         );
     }

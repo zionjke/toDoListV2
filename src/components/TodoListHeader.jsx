@@ -7,17 +7,13 @@ class TodoListHeader extends React.Component {
         title: ""
     }
 
-    // newTaskTitleRef = React.createRef();
-
     onAddTaskClick = () => {
-        // let newTitle = this.newTaskTitleRef.current.value;
         let newTitle = this.state.title.trim()
         if (newTitle === "") {
             this.setState({
                 error: true
             })
         } else {
-            // this.newTaskTitleRef.current.value = "";
             this.setState({
                 error: false,
                 title: ""
@@ -39,7 +35,6 @@ class TodoListHeader extends React.Component {
             this.onAddTaskClick();
         }
     }
-
 
     render = () => {
 
