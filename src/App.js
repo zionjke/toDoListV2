@@ -17,7 +17,6 @@ class App extends React.Component {
             // {id: 3, title: "ReactJS", isDone: false, priority: "high"}
         ],
         filterValue: "All",
-        newTaskId: 0
     };
 
     newTaskId = 0;
@@ -36,7 +35,6 @@ class App extends React.Component {
         let state = {
             tasks: [],
             filterValue: "All",
-            newTaskId: 0
         };
         let stateAsString = localStorage.getItem("state");
         if (stateAsString !== null) {
@@ -96,6 +94,15 @@ class App extends React.Component {
         }, () => { this.saveState();});
     };
 
+
+    deleteTask = (taskID) => {
+        let newTasks = this.state.tasks.filter(t => t.id !== taskID);
+        this.newTaskId--;
+        this.setState({
+            tasks: newTasks
+        }, () => {this.saveState()})
+    }
+
     componentDidMount() {
         this.restoreState();
     }
@@ -120,7 +127,8 @@ class App extends React.Component {
                     <TodoListHeader addTask={this.addTask} />
                     <TodoListTasks changeStatus={this.changeStatus}
                                    changeTitle={this.changeTitle}
-                                   tasks={filteredTask}/>
+                                   tasks={filteredTask}
+                                   deleteTask={this.deleteTask}/>
                     <TodoListFooter changeFilter={this.changeFilter}
                                     filterValue={this.state.filterValue} />
                 </div>

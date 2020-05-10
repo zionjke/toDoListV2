@@ -7,7 +7,8 @@ class TodoListTasks extends React.Component {
         let taskEl = this.props.tasks.map ( task => <TodoListTask key={task.id}
                                                                   task={task}
                                                                   changeStatus={this.props.changeStatus}
-                                                                  changeTitle={this.props.changeTitle}/>);
+                                                                  changeTitle={this.props.changeTitle}
+                                                                  deleteTask={this.props.deleteTask}/>);
 
         return (
             <div className="todoList-tasks">
