@@ -41,7 +41,7 @@ class TodoList extends React.Component {
         });
     };
 
-    addItem = (newText) => {
+    addTask = (newText) => {
         let newTask = {
             id: this.newTaskId,
             title: newText,
@@ -89,7 +89,6 @@ class TodoList extends React.Component {
 
     deleteTask = (taskID) => {
         let newTasks = this.state.tasks.filter(t => t.id !== taskID);
-        this.newTaskId--;
         this.setState({
             tasks: newTasks
         }, () => {this.saveState()})
@@ -114,17 +113,15 @@ class TodoList extends React.Component {
         })
 
         return (
-            <div className="App">
-                <div className="todoList">
+            <div className="todoList">
                     <TodoListTitle title={this.props.title}/>
-                    <AddNewItemForm addItem={this.addItem} />
+                    <AddNewItemForm addItem={this.addTask} />
                     <TodoListTasks changeStatus={this.changeStatus}
                                    changeTitle={this.changeTitle}
                                    tasks={filteredTask}
                                    deleteTask={this.deleteTask}/>
                     <TodoListFooter changeFilter={this.changeFilter}
                                     filterValue={this.state.filterValue} />
-                </div>
             </div>
         );
     }

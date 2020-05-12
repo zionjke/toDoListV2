@@ -28,8 +28,8 @@ class App extends React.Component {
         }
         this.setState(state, () => {
             this.state.todolists.forEach(tl => {
-                if (tl.id >= this.newTaskId) {
-                    this.newTaskId = tl.id +1
+                if (tl.id >= this.newTodoId) {
+                    this.newTodoId = tl.id +1
                 }
             })
         });
@@ -57,14 +57,13 @@ class App extends React.Component {
 
         return (
             <div>
-                <AddNewItemForm addItem={this.addTodoList}/>
+                <div>
+                    <AddNewItemForm addItem={this.addTodoList}/>
+                </div>
                 <div className="App">
-                    <div className="todoList">
-                        {todolists}
-                    </div>
+                    {todolists}
                 </div>
             </div>
-
         );
     }
 }
