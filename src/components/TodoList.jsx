@@ -3,6 +3,7 @@ import AddNewItemForm from "./AddNewItemForm";
 import TodoListTasks from "./TodoListTasks";
 import TodoListFooter from "./TodoListFooter";
 import TodoListTitle from "./TodoListTitle";
+import {connect} from "react-redux";
 
 class TodoList extends React.Component {
 
@@ -48,12 +49,12 @@ class TodoList extends React.Component {
             isDone: false,
             priority: "low"
         };
-        this.newTaskId++;
-        let newTasks = [...this.state.tasks, newTask];
-        this.setState( {
-            tasks: newTasks
-        }, () => { this.saveState();});
-
+        // this.newTaskId++;
+        // let newTasks = [...this.state.tasks, newTask];
+        // this.setState( {
+        //     tasks: newTasks
+        // }, () => { this.saveState();});
+        this.props.addTask(this.props.id,newTask)
     };
 
     changeFilter = (newFilterValue) => {
@@ -71,7 +72,7 @@ class TodoList extends React.Component {
     };
 
     changedTask = (taskId, obj) => {
-        let newTasks = this.state.tasks.map(t => {
+        let newTasks = this.props.tasks.map(t => {
             if (t.id !== taskId) {
                 return t; //возвращаем таску без изменения, если это не та таска, которую нужно поменять
             }
@@ -100,7 +101,7 @@ class TodoList extends React.Component {
 
     render = () => {
 
-        let filteredTask = this.state.tasks.filter(t => {
+        let filteredTask = this.props.tasks.filter(t => {
             if (this.state.filterValue === "All") {
                 return true;
             }
@@ -127,5 +128,18 @@ class TodoList extends React.Component {
     }
 }
 
-export default TodoList;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addTask: (todolistId,newTask) => {
+            const action = {
+                type: 'CREATE_TASK',
+                todolistId,
+                newTask
+            }
+            dispatch(action)
+        }
+    }
+}
+
+export default connect(null,mapDispatchToProps)(TodoList)
 
