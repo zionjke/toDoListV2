@@ -137,7 +137,8 @@ const mapDispatchToProps = (dispatch) => {
                 newTask
             }
             dispatch(action)
-        }
+        },
+
     }
 }
 
