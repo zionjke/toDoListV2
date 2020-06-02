@@ -9,6 +9,7 @@ class TodoList extends React.Component {
 
     state = {
         filterValue: "All",
+
     };
 
     newTaskId = 0;
@@ -43,6 +44,7 @@ class TodoList extends React.Component {
             isDone: false,
             priority: "low"
         };
+        this.newTaskId++;
         this.props.addTask(this.props.id,newTask)
         // this.newTaskId++;
         // let newTasks = [...this.state.tasks, newTask];
@@ -132,8 +134,7 @@ const mapDispatchToProps = (dispatch) => {
                 newTask
             }
             dispatch(action)
-        },
-
+        }
     }
 }
 
