@@ -8,39 +8,33 @@ import {connect} from "react-redux";
 class TodoList extends React.Component {
 
     state = {
-        tasks: [
-            // {id: 0, title: "JS", isDone: true, priority: "medium"},
-            // {id: 1, title: "HTML", isDone: true, priority: "low"},
-            // {id: 2, title: "CSS", isDone: true, priority: "low"},
-            // {id: 3, title: "ReactJS", isDone: false, priority: "high"}
-        ],
         filterValue: "All",
     };
 
     newTaskId = 0;
 
-    saveState = () => {
-        //переводим объект в строку
-        let  stateAString = JSON.stringify(this.state);
-        //сохраняем нашу строку в localStorage под ключом "state"
-        localStorage.setItem("tasks-state" + this.props.id, stateAString);
-    };
+    // saveState = () => {
+    //     //переводим объект в строку
+    //     let  stateAString = JSON.stringify(this.state);
+    //     //сохраняем нашу строку в localStorage под ключом "state"
+    //     localStorage.setItem("tasks-state" + this.props.id, stateAString);
+    // };
 
-    restoreState = () => {
-        //объявляем наш стейт стартовый
-        let state = this.state
-        let stateAsString = localStorage.getItem("tasks-state" + this.props.id);
-        if (stateAsString !== null) {
-            state = JSON.parse(stateAsString);
-        }
-        this.setState(state, () => {
-            this.state.tasks.forEach(t => {
-                if (t.id >= this.newTaskId) {
-                    this.newTaskId = t.id +1
-                }
-            })
-        });
-    };
+    // restoreState = () => {
+    //     //объявляем наш стейт стартовый
+    //     let state = this.state
+    //     let stateAsString = localStorage.getItem("tasks-state" + this.props.id);
+    //     if (stateAsString !== null) {
+    //         state = JSON.parse(stateAsString);
+    //     }
+    //     this.setState(state, () => {
+    //         this.state.tasks.forEach(t => {
+    //             if (t.id >= this.newTaskId) {
+    //                 this.newTaskId = t.id +1
+    //             }
+    //         })
+    //     });
+    // };
 
     addTask = (newText) => {
         let newTask = {
@@ -49,12 +43,13 @@ class TodoList extends React.Component {
             isDone: false,
             priority: "low"
         };
+        this.props.addTask(this.props.id,newTask)
         // this.newTaskId++;
         // let newTasks = [...this.state.tasks, newTask];
         // this.setState( {
         //     tasks: newTasks
         // }, () => { this.saveState();});
-        this.props.addTask(this.props.id,newTask)
+
     };
 
     changeFilter = (newFilterValue) => {

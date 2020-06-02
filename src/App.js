@@ -10,7 +10,7 @@ class App extends React.Component {
     //     todolists: []
     // }
 
-    newTodoId = 0;
+    newTodoId = 4;
 
 
     saveState = () => {
