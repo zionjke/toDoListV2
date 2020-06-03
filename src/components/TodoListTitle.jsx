@@ -10,9 +10,7 @@ class TodoListTitle extends React.Component {
         return (
             <h3 className="todoList-header__title">
                 {this.props.title}
-                <button onClick={() => {
-                    this.props.deleteTodo(this.props.id)
-                }} className="btn_del">
+                <button onClick={ () => {this.props.deleteTodo(this.props.id)}} className="btn_del">
                     X
                 </button>
             </h3>
