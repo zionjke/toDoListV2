@@ -5,7 +5,7 @@ class AddNewItemForm extends React.Component {
     state = {
         error: false,
         title: ""
-    }
+    };
 
     onAddItemClick = () => {
         let newTitle = this.state.title.trim()
@@ -34,7 +34,7 @@ class AddNewItemForm extends React.Component {
         if (e.key === "Enter") {
             this.onAddItemClick();
         }
-    }
+    };
 
     render = () => {
 

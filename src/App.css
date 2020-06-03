@@ -26,3 +26,7 @@
 .todoList-task.done {
   opacity: 0.5;
 }
+
+.btn_del {
+  margin-left: 50px;
+}

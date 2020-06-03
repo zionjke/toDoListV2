@@ -10,40 +10,40 @@ class App extends React.Component {
     //     todolists: []
     // }
 
-    newTodoId = 4;
+    newTodoId = 0;
 
 
-    saveState = () => {
-        //переводим объект в строку
-        let  stateAString = JSON.stringify(this.state);
-        //сохраняем нашу строку в localStorage под ключом "state"
-        localStorage.setItem("todo-state", stateAString);
-    };
-
-    restoreState = () => {
-        //объявляем наш стейт стартовый
-        let state = this.state
-        let stateAsString = localStorage.getItem("todo-state" );
-        if (stateAsString !== null) {
-            state = JSON.parse(stateAsString);
-        }
-        this.setState(state, () => {
-            this.state.todolists.forEach(tl => {
-                if (tl.id >= this.newTodoId) {
-                    this.newTodoId = tl.id +1
-                }
-            })
-        });
-    };
+    // saveState = () => {
+    //     //переводим объект в строку
+    //     let  stateAString = JSON.stringify(this.state);
+    //     //сохраняем нашу строку в localStorage под ключом "state"
+    //     localStorage.setItem("todo-state", stateAString);
+    // };
+    //
+    // restoreState = () => {
+    //     //объявляем наш стейт стартовый
+    //     let state = this.state
+    //     let stateAsString = localStorage.getItem("todo-state" );
+    //     if (stateAsString !== null) {
+    //         state = JSON.parse(stateAsString);
+    //     }
+    //     this.setState(state, () => {
+    //         this.state.todolists.forEach(tl => {
+    //             if (tl.id >= this.newTodoId) {
+    //                 this.newTodoId = tl.id +1
+    //             }
+    //         })
+    //     });
+    // };
 
     addTodoList = (title) => {
-        let newTodolist = {
-            id: this.newTodoId,
-            title: title,
-            tasks:[]
-        };
+        // let newTodolist = {
+        //     id: this.newTodoId,
+        //     title: title,
+        //     tasks:[]
+        // };
 
-        this.props.createTodolists(newTodolist)
+        this.props.createTodolists(title)
 
         // this.newTodoId++;
         // let newTodolists = [...this.state.todolists, newTodolist];
@@ -53,15 +53,15 @@ class App extends React.Component {
     };
 
     componentDidMount() {
-        this.restoreState()
+
     };
 
     render = () => {
 
-        const todolist = this.props.todolists.map(tl => <TodoList key={tl.id}
-                                                                  id={tl.id}
-                                                                  title={tl.title}
-                                                                  tasks={tl.tasks}/>)
+        const todolist = this.props.todolists.map(todo => <TodoList key={todo.id}
+                                                                  id={todo.id}
+                                                                  title={todo.title}
+                                                                  tasks={todo.tasks}/>);
 
         return (
             <div>
@@ -81,19 +81,19 @@ const mapStateToProps = (state) => {
     return {
         todolists: state.todolists
     }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {
-       createTodolists: (newTodolist) => {
+       createTodolists: (title) => {
            const action = {
                type: 'CREATE_TODOLIST',
-               newTodolist:newTodolist
-           }
+               title: title
+           };
            dispatch(action)
        }
     }
-}
+};
 
 const ConnectedApp = connect(mapStateToProps,mapDispatchToProps)(App);
 

@@ -22,39 +22,41 @@ class TodoListTask extends React.Component {
     };
 
     onIsTitleChanged = (e) => {
-        this.props.changeTitle(this.props.task.id,e.currentTarget.value)
+        this.props.changeTitle(this.props.task.id, e.currentTarget.value)
     };
 
     onIsDeleteTask = () => {
         this.props.deleteTask(this.props.task.id)
-    }
+    };
 
     render = () => {
 
-        let classForTask = this.props.task.isDone  ? "todoList-task done" : "todoList-task";
+        let classForTask = this.props.task.isDone ? "todoList-task done" : "todoList-task";
 
         return (
-                <div className={classForTask}>
+            <div className={classForTask}>
 
-                    <input
-                            type="checkbox"
-                           checked={this.props.task.isDone}
-                            onChange={this.onIsDoneChanged}
-                    />
+                <input
+                    type="checkbox"
+                    checked={this.props.task.isDone}
+                    onChange={this.onIsDoneChanged}
+                />
 
-                    { this.state.isEditMode
-                        ? <input value={this.props.task.title}
-                                 autoFocus={true}
-                                 onBlur={this.deactivatedEditMode}
-                                 onChange={this.onIsTitleChanged}/>
-                        : <span onClick={this.activatedEditMode}> {this.props.task.id}: {this.props.task.title} </span>
-                    }
+                {this.state.isEditMode
+                    ? <input value={this.props.task.title}
+                             autoFocus={true}
+                             onBlur={this.deactivatedEditMode}
+                             onChange={this.onIsTitleChanged}/>
+                    : <span onClick={this.activatedEditMode}>
+                            {this.props.task.id}: {this.props.task.title}
+                    </span>
+                }
 
-                    <span>
+                <span>
                          {this.props.task.priority}
                     </span>
-                    <button onClick={this.onIsDeleteTask}>delete</button>
-                </div>
+                <button onClick={this.onIsDeleteTask}>delete</button>
+            </div>
         );
     }
 
