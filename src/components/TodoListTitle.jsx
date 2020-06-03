@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
+import {deleteTodoActionCreator} from "../redux/reducer";
 
 class TodoListTitle extends React.Component {
 
@@ -21,10 +22,7 @@ class TodoListTitle extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         deleteTodo: (todolistId) => {
-            const action = {
-                type: 'DELETE_TODO',
-                todolistId: todolistId
-            };
+            const action = deleteTodoActionCreator(todolistId)
             dispatch(action)
         }
     }
