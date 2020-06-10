@@ -3,59 +3,37 @@ import './App.css';
 import TodoList from "./components/TodoList";
 import AddNewItemForm from "./components/AddNewItemForm";
 import {connect} from "react-redux";
-import {createTodoActionCreator} from "./redux/reducer";
+import {createTodoActionCreator, setTodoListAC} from "./redux/reducer";
+import axios from 'axios'
 
 class App extends React.Component {
 
-    // state = {
-    //     todolists: []
-    // }
-
-    newTodoId = 0;
-
-
-    // saveState = () => {
-    //     //переводим объект в строку
-    //     let  stateAString = JSON.stringify(this.state);
-    //     //сохраняем нашу строку в localStorage под ключом "state"
-    //     localStorage.setItem("todo-state", stateAString);
-    // };
-    //
-    // restoreState = () => {
-    //     //объявляем наш стейт стартовый
-    //     let state = this.state
-    //     let stateAsString = localStorage.getItem("todo-state" );
-    //     if (stateAsString !== null) {
-    //         state = JSON.parse(stateAsString);
-    //     }
-    //     this.setState(state, () => {
-    //         this.state.todolists.forEach(tl => {
-    //             if (tl.id >= this.newTodoId) {
-    //                 this.newTodoId = tl.id +1
-    //             }
-    //         })
-    //     });
-    // };
 
     addTodoList = (title) => {
-        // let newTodolist = {
-        //     id: this.newTodoId,
-        //     title: title,
-        //     tasks:[]
-        // };
-
-        this.props.createTodolists(title)
-
-        // this.newTodoId++;
-        // let newTodolists = [...this.state.todolists, newTodolist];
-        // this.setState({
-        //     todolists: newTodolists
-        // },() => { this.saveState()})
+        axios.post("https://social-network.samuraijs.com/api/1.1/todo-lists",
+            {title: title},
+            {
+                withCredentials: true,
+                headers: {'API-KEY': 'db79da77-d4ed-4333-9c43-3bf4d5e71c39'}
+            })
+            .then(res => {
+                if(res.data.resultCode === 0) {
+                    this.props.createTodolists(res.data.data.item)
+                }
+            });
     };
 
     componentDidMount() {
-
+        this.restoreState()
     };
+
+    restoreState = () => {
+        axios.get("https://social-network.samuraijs.com/api/1.1/todo-lists",
+            {withCredentials: true})
+            .then(res => {
+                this.props.setTodolists(res.data)
+            });
+    }
 
     render = () => {
 
@@ -86,10 +64,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-       createTodolists: (title) => {
-           const action = createTodoActionCreator(title)
+       createTodolists: (newTodolist) => {
+           const action = createTodoActionCreator(newTodolist)
            dispatch(action)
-       }
+       },
+        setTodolists: (todolists) => {
+           const action = setTodoListAC(todolists);
+           dispatch(action)
+        }
     }
 };
 

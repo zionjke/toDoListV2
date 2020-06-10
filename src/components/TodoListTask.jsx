@@ -31,14 +31,15 @@ class TodoListTask extends React.Component {
 
     render = () => {
 
-        let classForTask = this.props.task.isDone ? "todoList-task done" : "todoList-task";
+        let isStatus = this.props.task.status === 2
+        let classForTask = isStatus ? "todoList-task done" : "todoList-task";
 
         return (
             <div className={classForTask}>
 
                 <input
                     type="checkbox"
-                    checked={this.props.task.isDone}
+                    checked={isStatus }
                     onChange={this.onIsDoneChanged}
                 />
 
