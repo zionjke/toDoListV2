@@ -3,18 +3,11 @@ const CREATE_TASK = 'CREATE_TASK';
 const CHANGE_TASK = 'CHANGE_TASK';
 const DELETE_TODO = 'DELETE_TODO';
 const DELETE_TASK = 'DELETE_TASK';
-const SET_TODOLISTS = 'SET_TODOLISTS'
-const SET_TODOLISTS_TASKS = 'SET_TODOLISTS_TASKS'
+const SET_TODOLISTS = 'SET_TODOLISTS';
+const SET_TODOLISTS_TASKS = 'SET_TODOLISTS_TASKS';
 
 const initialState = {
-    todolists: [
-        // {id: 1, title: "REACT", tasks: [{id: 0, title: "JS", isDone: false, priority: "low"}]},
-        // {
-        //     id: 2, title: "REDUX", tasks: [{id: 0, title: "JS", isDone: false, priority: "medium"},
-        //         {id: 1, title: "REACT", isDone: false, priority: "high"}]
-        // },
-        // {id: 3, title: "JS", tasks: [{id: 0, title: "REDUX", isDone: false, priority: "high"}]},
-    ]
+    todolists: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -28,7 +21,7 @@ const reducer = (state = initialState, action) => {
                         tasks: []
                     }
                 })
-            }
+            };
         case SET_TODOLISTS_TASKS:
             return {
                 ...state,
@@ -42,7 +35,7 @@ const reducer = (state = initialState, action) => {
                         }
                     }
                 })
-            }
+            };
         case CREATE_TODOLIST:
             return {
                 ...state,
@@ -148,7 +141,7 @@ export const deleteTaskActionCreator = (taskId, todolistId) => {
         taskId: taskId,
         todolistId: todolistId
     }
-}
+};
 
 export const setTodoListAC = (todolists) => {
     return {
@@ -163,6 +156,6 @@ export const setTaskAC = (todolistId,task) => {
         todolistId,
         task
     }
-}
+};
 
 export default reducer

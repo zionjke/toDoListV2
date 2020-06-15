@@ -16,9 +16,9 @@ class App extends React.Component {
                 withCredentials: true,
                 headers: {'API-KEY': 'db79da77-d4ed-4333-9c43-3bf4d5e71c39'}
             })
-            .then(res => {
-                if(res.data.resultCode === 0) {
-                    this.props.createTodolists(res.data.data.item)
+            .then(response => {
+                if(response.data.resultCode === 0) {
+                    this.props.createTodolists(response.data.data.item)
                 }
             });
     };
@@ -27,13 +27,19 @@ class App extends React.Component {
         this.restoreState()
     };
 
+
+
     restoreState = () => {
+        // делаем запрос на сервер
+        // дождатся ответа..
+        // нам прийдут тудулисты и мы должны их отправить в store
         axios.get("https://social-network.samuraijs.com/api/1.1/todo-lists",
             {withCredentials: true})
-            .then(res => {
-                this.props.setTodolists(res.data)
+            .then(response => {
+                console.log('TODOLIST RECEIVED');
+                this.props.setTodolists(response.data)
             });
-    }
+    };
 
     render = () => {
 
@@ -65,7 +71,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
        createTodolists: (newTodolist) => {
-           const action = createTodoActionCreator(newTodolist)
+           const action = createTodoActionCreator(newTodolist);
            dispatch(action)
        },
         setTodolists: (todolists) => {
@@ -79,5 +85,5 @@ const ConnectedApp = connect(mapStateToProps,mapDispatchToProps)(App);
 
 export default ConnectedApp;
 
-// export default App;
+
 

@@ -8,7 +8,7 @@ class AddNewItemForm extends React.Component {
     };
 
     onAddItemClick = () => {
-        let newTitle = this.state.title.trim()
+        let newTitle = this.state.title.trim();
         if (newTitle === "") {
             this.setState({
                 error: true
@@ -38,7 +38,7 @@ class AddNewItemForm extends React.Component {
 
     render = () => {
 
-        let classForInput = this.state.error ? "error" : ""
+        let classForInput = this.state.error ? "error" : "";
 
         return (
             <div className="todoList-header">
