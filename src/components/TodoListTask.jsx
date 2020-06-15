@@ -6,24 +6,19 @@ class TodoListTask extends React.Component {
     };
 
     activatedEditMode = () => {
-        this.setState({
-            isEditMode: true
-        })
+        this.setState({isEditMode: true})
     };
 
-    deactivatedEditMode = () => {
-        this.setState({
-            isEditMode: false
-        })
+    deactivatedEditMode = (e) => {
+        this.props.changeTitle(this.props.task, e.currentTarget.value)
+        this.setState({isEditMode: false})
     };
 
     onIsDoneChanged = (e) => {
-        this.props.changeStatus(this.props.task.id, e.currentTarget.checked)
+        this.props.changeStatus(this.props.task, e.currentTarget.checked)
     };
 
-    onIsTitleChanged = (e) => {
-        this.props.changeTitle(this.props.task.id, e.currentTarget.value)
-    };
+
 
     onIsDeleteTask = () => {
         this.props.deleteTask(this.props.task.id)
@@ -31,25 +26,25 @@ class TodoListTask extends React.Component {
 
     render = () => {
 
-        let isStatus = this.props.task.status === 2
-        let classForTask = isStatus ? "todoList-task done" : "todoList-task";
+        let isDone = this.props.task.status === 2
+        let classForTask = isDone ? "todoList-task done" : "todoList-task";
 
         return (
             <div className={classForTask}>
 
                 <input
                     type="checkbox"
-                    checked={isStatus }
+                    checked={isDone}
                     onChange={this.onIsDoneChanged}
                 />
 
                 {this.state.isEditMode
-                    ? <input value={this.props.task.title}
+                    ? <input defaultValue={this.props.task.title}
                              autoFocus={true}
                              onBlur={this.deactivatedEditMode}
-                             onChange={this.onIsTitleChanged}/>
+                            />
                     : <span onClick={this.activatedEditMode}>
-                            {this.props.task.id}: {this.props.task.title}
+                             {this.props.task.title}
                     </span>
                 }
 

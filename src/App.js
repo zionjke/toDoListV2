@@ -10,6 +10,7 @@ class App extends React.Component {
 
 
     addTodoList = (title) => {
+        // закидываем тудулисты в бекэнд..
         axios.post("https://social-network.samuraijs.com/api/1.1/todo-lists",
             {title: title},
             {
@@ -24,12 +25,6 @@ class App extends React.Component {
     };
 
     componentDidMount() {
-        this.restoreState()
-    };
-
-
-
-    restoreState = () => {
         // делаем запрос на сервер
         // дождатся ответа..
         // нам прийдут тудулисты и мы должны их отправить в store
@@ -40,6 +35,8 @@ class App extends React.Component {
                 this.props.setTodolists(response.data)
             });
     };
+
+
 
     render = () => {
 
