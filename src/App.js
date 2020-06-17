@@ -4,36 +4,18 @@ import TodoList from "./components/TodoList";
 import AddNewItemForm from "./components/AddNewItemForm";
 import {connect} from "react-redux";
 import {createTodoActionCreator, setTodoListAC} from "./redux/reducer";
-import axios from 'axios'
+import {api} from "./dal/api";
 
 class App extends React.Component {
 
-
     addTodoList = (title) => {
-        // закидываем тудулисты в бекэнд..
-        axios.post("https://social-network.samuraijs.com/api/1.1/todo-lists",
-            {title: title},
-            {
-                withCredentials: true,
-                headers: {'API-KEY': 'db79da77-d4ed-4333-9c43-3bf4d5e71c39'}
-            })
-            .then(response => {
-                if(response.data.resultCode === 0) {
-                    this.props.createTodolists(response.data.data.item)
-                }
+        api.createTodolist(title).then(response => {
+                    this.props.createTodolists(response.data.item)
             });
     };
 
     componentDidMount() {
-        // делаем запрос на сервер
-        // дождатся ответа..
-        // нам прийдут тудулисты и мы должны их отправить в store
-        axios.get("https://social-network.samuraijs.com/api/1.1/todo-lists",
-            {withCredentials: true})
-            .then(response => {
-                console.log('TODOLIST RECEIVED');
-                this.props.setTodolists(response.data)
-            });
+        api.getTodolist().then(response => {this.props.setTodolists(response)});
     };
 
 

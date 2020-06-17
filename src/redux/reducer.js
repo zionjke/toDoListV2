@@ -5,6 +5,7 @@ const DELETE_TODO = 'DELETE_TODO';
 const DELETE_TASK = 'DELETE_TASK';
 const SET_TODOLISTS = 'SET_TODOLISTS';
 const SET_TODOLISTS_TASKS = 'SET_TODOLISTS_TASKS';
+const CHANGE_TODO_TITLE = 'CHANGE_TODO_TITLE';
 
 const initialState = {
     todolists: []
@@ -79,6 +80,21 @@ const reducer = (state = initialState, action) => {
                     }
                 })
             };
+        case CHANGE_TODO_TITLE:{
+            return {
+                ...state,
+                todolists: state.todolists.map(todo => {
+                    if(todo.id !== action.todolistId){
+                        return todo
+                    } else {
+                        return {
+                            ...todo,
+                            title: action.title
+                        }
+                    }
+                })
+            }
+        }
         case DELETE_TODO:
             return {
                 ...state,
@@ -115,7 +131,6 @@ export const createTaskActionCreator = (newTask, todolistId) => {
         type: CREATE_TASK,
         newTask,
         todolistId
-
     }
 };
 
@@ -157,5 +172,13 @@ export const setTaskAC = (todolistId,task) => {
         task
     }
 };
+
+export const changeTodoTitleAC =(todolistId,title) => {
+    return {
+        type: CHANGE_TODO_TITLE,
+        todolistId,
+        title
+    }
+}
 
 export default reducer

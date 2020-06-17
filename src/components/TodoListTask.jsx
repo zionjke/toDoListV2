@@ -47,10 +47,6 @@ class TodoListTask extends React.Component {
                              {this.props.task.title}
                     </span>
                 }
-
-                <span>
-                    {this.props.task.priority}
-                    </span>
                 <button onClick={this.onIsDeleteTask}>x</button>
             </div>
         );
