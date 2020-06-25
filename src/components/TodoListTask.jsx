@@ -26,7 +26,7 @@ class TodoListTask extends React.Component {
 
     render = () => {
 
-        let isDone = this.props.task.status === 2
+        let isDone = this.props.task.status === 2;
         let classForTask = isDone ? "todoList-task done" : "todoList-task";
 
         return (

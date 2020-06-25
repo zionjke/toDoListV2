@@ -3,19 +3,16 @@ import './App.css';
 import TodoList from "./components/TodoList";
 import AddNewItemForm from "./components/AddNewItemForm";
 import {connect} from "react-redux";
-import {createTodoActionCreator, setTodoListAC} from "./redux/reducer";
-import {api} from "./dal/api";
+import {createTodoList,getTodoLists } from "./redux/reducer";
 
 class App extends React.Component {
 
     addTodoList = (title) => {
-        api.createTodolist(title).then(response => {
-                    this.props.createTodolists(response.data.item)
-            });
+        this.props.createTodoList(title)
     };
 
     componentDidMount() {
-        api.getTodolist().then(response => {this.props.setTodolists(response)});
+        this.props.getTodoLists()
     };
 
 
@@ -47,20 +44,9 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-       createTodolists: (newTodolist) => {
-           const action = createTodoActionCreator(newTodolist);
-           dispatch(action)
-       },
-        setTodolists: (todolists) => {
-           const action = setTodoListAC(todolists);
-           dispatch(action)
-        }
-    }
-};
 
-const ConnectedApp = connect(mapStateToProps,mapDispatchToProps)(App);
+
+const ConnectedApp = connect(mapStateToProps,{createTodoList,getTodoLists})(App);
 
 export default ConnectedApp;
 

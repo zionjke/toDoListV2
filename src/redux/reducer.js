@@ -1,3 +1,5 @@
+import {api} from "../dal/api";
+
 const CREATE_TODOLIST = 'CREATE_TODOLIST';
 const CREATE_TASK = 'CREATE_TASK';
 const CHANGE_TASK = 'CHANGE_TASK';
@@ -119,14 +121,14 @@ const reducer = (state = initialState, action) => {
     return state;
 };
 
-export const createTodoActionCreator = (newTodolist) => {
+export const createTodo = (newTodolist) => {
     return {
         type: CREATE_TODOLIST,
         newTodolist
     }
 };
 
-export const createTaskActionCreator = (newTask, todolistId) => {
+export const createTask = (newTask, todolistId) => {
     return {
         type: CREATE_TASK,
         newTask,
@@ -134,7 +136,7 @@ export const createTaskActionCreator = (newTask, todolistId) => {
     }
 };
 
-export const changeTaskActionCreator = (taskId, obj, todolistId) => {
+export const updateTask = (taskId, obj, todolistId) => {
     return {
         type: CHANGE_TASK,
         taskId: taskId,
@@ -143,14 +145,14 @@ export const changeTaskActionCreator = (taskId, obj, todolistId) => {
     }
 };
 
-export const deleteTodoActionCreator = (todolistId) => {
+export const deleteTodo = (todolistId) => {
     return {
         type: DELETE_TODO,
         todolistId: todolistId
     }
 };
 
-export const deleteTaskActionCreator = (taskId, todolistId) => {
+export const deleteTask = (taskId, todolistId) => {
     return {
         type: DELETE_TASK,
         taskId: taskId,
@@ -158,7 +160,7 @@ export const deleteTaskActionCreator = (taskId, todolistId) => {
     }
 };
 
-export const setTodoListAC = (todolists) => {
+export const setTodoList = (todolists) => {
     return {
         type: SET_TODOLISTS,
         todolists
@@ -173,12 +175,62 @@ export const setTaskAC = (todolistId,task) => {
     }
 };
 
-export const changeTodoTitleAC =(todolistId,title) => {
+export const changeTodoTitle =(todolistId,title) => {
     return {
         type: CHANGE_TODO_TITLE,
         todolistId,
         title
     }
 };
+
+export const createTodoList = (title) => (dispatch) => {
+    api.createTodolist(title).then(response => {
+        dispatch(createTodo(response.data.item))
+    });
+};
+
+export const getTodoLists = () => (dispatch) => {
+    api.getTodolist().then(response => {
+        dispatch(setTodoList(response))
+    });
+};
+
+export const getTodoTasks = (todoId) => (dispatch) => {
+    api.getTasks(todoId).then(response => {
+        dispatch(setTaskAC(todoId,response.items))})
+};
+
+export const addTask = (title,todoId) => (dispatch) => {
+    api.addTask(title,todoId).then(response => {
+        dispatch(createTask(response.data.item ,todoId))
+    });
+};
+
+export const deleteTodoList = (todoId) => (dispatch) => {
+    api.deleteTodo(todoId).then( () => {
+        dispatch(deleteTodo(todoId))
+    });
+};
+
+export const editTodoTitle = (todoId,title) => (dispatch) => {
+    api.changeTodoTitle(todoId,title).then (() => {
+        dispatch(changeTodoTitle(todoId,title))
+    })
+};
+
+export const deleteTodoTask = (taskId,todoId) => (dispatch) => {
+    api.deleteTask(todoId,taskId).then( () => {
+        dispatch(deleteTask(taskId,todoId))
+    });
+};
+
+export const changeTodoTask = (task,obj,todoId) => (dispatch) => {
+    api.changeTask(task,obj,todoId).then( () => {
+        dispatch(updateTask(task.id,obj,todoId))
+    });
+};
+
+
+
 
 export default reducer
