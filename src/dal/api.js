@@ -38,5 +38,9 @@ export const api = {
             },
             )
             .then(response => response)
+    },
+
+    changeTodoTitle(todoId,title) {
+        return instance.put(`/${todoId}`,{title:title}).then(response=>response)
     }
 }

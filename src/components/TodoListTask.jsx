@@ -10,7 +10,7 @@ class TodoListTask extends React.Component {
     };
 
     deactivatedEditMode = (e) => {
-        this.props.changeTitle(this.props.task, e.currentTarget.value)
+        this.props.changeTitle(this.props.task, e.currentTarget.value);
         this.setState({isEditMode: false})
     };
 

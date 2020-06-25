@@ -179,6 +179,6 @@ export const changeTodoTitleAC =(todolistId,title) => {
         todolistId,
         title
     }
-}
+};
 
 export default reducer

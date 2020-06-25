@@ -5,7 +5,7 @@ import TodoListFooter from "./TodoListFooter";
 import TodoListTitle from "./TodoListTitle";
 import {connect} from "react-redux";
 import {
-    changeTaskActionCreator,
+    changeTaskActionCreator, changeTodoTitleAC,
     createTaskActionCreator,
     deleteTaskActionCreator,
     deleteTodoActionCreator,
@@ -34,7 +34,7 @@ class TodoList extends React.Component {
 
     changeTask = (task,obj) => {
        api.changeTask(task,obj,this.props.id).then( () => {this.props.updateTask(task.id,obj,this.props.id)});
-    }
+    };
 
     changeStatus = (task, isDone) => {
         this.changeTask(task, {status: isDone ? 2 : 0});
@@ -42,6 +42,10 @@ class TodoList extends React.Component {
 
     changeTitle = (task, newTitle) => {
         this.changeTask(task, {title: newTitle});
+    };
+
+    changeTodoTitle = (title) => {
+        api.changeTodoTitle(this.props.id,title).then (() => {this.props.editTitle(this.props.id,title)})
     };
 
 
@@ -83,7 +87,9 @@ class TodoList extends React.Component {
         return (
             <div className="todoList">
                 <TodoListTitle title={this.props.title}
-                               deleteTodolist={this.deleteTodolist}/>
+                               deleteTodolist={this.deleteTodolist}
+                               editTitle={this.changeTodoTitle}
+                              />
                 <AddNewItemForm addItem={this.addTask}/>
                 <TodoListTasks changeStatus={this.changeStatus}
                                changeTitle={this.changeTitle}
@@ -118,6 +124,10 @@ const mapDispatchToProps = (dispatch) => {
             const action = deleteTodoActionCreator(todolistId);
             dispatch(action)
         },
+        editTitle: (todolistId,title) => {
+            const action = changeTodoTitleAC(todolistId,title);
+            dispatch(action)
+        }
     }
 };
 
