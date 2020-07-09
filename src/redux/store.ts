@@ -6,6 +6,10 @@ const rootReducer = combineReducers({
     todolist: reducer
 });
 
+
+export type AppStateType = ReturnType<typeof rootReducer>
+
+
 const store = createStore(rootReducer,applyMiddleware(thunk));
 
 export default store
